@@ -1,8 +1,8 @@
 import 'package:my_project/my_project.dart';
 
-class Alumno extends ManagedObject<_Alumno> implements _Alumno {}
+class Student extends ManagedObject<_Student> implements _Student {}
 
-class _Alumno {
+class _Student {
   @Column(primaryKey: true)
   int id;
 
