@@ -11,7 +11,8 @@ class RouteStudents extends ResourceController {
     {'id': 12, 'nombre': 'Pancho'},
     {'id': 13, 'nombre': 'Paco'},
     {'id': 14, 'nombre': 'Frank'},
-    {'id': 15, 'nombre': 'Francis'}
+    {'id': 15, 'nombre': 'Francis'},
+    {'id': 16, 'nombre': 'Menona'},
   ];
 
   @Operation.get()
@@ -24,18 +25,16 @@ class RouteStudents extends ResourceController {
     final dynamic _student = _students.firstWhere(
         (student) => student["id"] == _idStudent,
         orElse: () => null);
-    if (_students != null) {
+    if (_student != null) {
       return Response.ok(_student);
     }
-    print(_idStudent);
     return Response.notFound(
-        body: {"error": "there is no student with id $_idStudent"},
-        headers: {"error": "there is no student with id $_idStudent"});
+        body: {"error": "there is no student with id $_idStudent"});
   }
 
   @Operation.post()
   Future<Response> createStudent(@Bind.body() Student input) async {
-    print(input);
+    print(input.toString());
     final query = Query<Student>(_context)..values = input;
     final _insertedData = await query.insert();
     return Response.ok(_insertedData);
