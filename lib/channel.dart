@@ -20,11 +20,21 @@ class MyProjectChannel extends ApplicationChannel {
         config.database.port,
         config.database.databaseName);
     _context = ManagedContext(dataModel, persistentStore);
+    //await createDatabaseSchema(_context);
   }
 
   @override
   Controller get entryPoint {
     return Router()
       ..route("/students/[:id]").link(() => RouteStudents(_context));
+  }
+
+  Future createDatabaseSchema(ManagedContext context) async {
+    final builder = SchemaBuilder.toSchema(
+        context.persistentStore, Schema.fromDataModel(context.dataModel),
+        isTemporary: false);
+    for (var cmd in builder.commands) {
+      await context.persistentStore.execute(cmd);
+    }
   }
 }

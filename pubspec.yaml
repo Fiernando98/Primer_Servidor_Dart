@@ -12,3 +12,6 @@ dependencies:
 dev_dependencies:
   test:
   aqueduct_test:
+
+dependency_overrides:
+  postgres:

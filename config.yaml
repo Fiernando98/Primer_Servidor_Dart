@@ -1,6 +1,6 @@
 database:
-  host: localhost
-  port: 53600
-  username: MenonaXS
+  username: menonaxs
   password: micontra
-  databaseName: Students_Dart
+  host: localhost
+  port: 5432
+  databaseName: students_api1
