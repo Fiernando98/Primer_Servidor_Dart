@@ -8,7 +8,12 @@ class Student extends ManagedObject<_Student> implements _Student {
 }
 
 class _Student {
-  @Column(primaryKey: true, nullable: false, autoincrement: true)
+  @Column(
+      primaryKey: true,
+      nullable: false,
+      autoincrement: true,
+      indexed: true,
+      unique: true)
   int id;
 
   @Column(unique: true)

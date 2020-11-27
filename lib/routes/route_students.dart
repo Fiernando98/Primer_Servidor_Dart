@@ -6,22 +6,18 @@ class RouteStudents extends ResourceController {
 
   RouteStudents(this._context);
 
-  final List<dynamic> _students = [
-    {'id': 11, 'nombre': 'Fransico'},
-    {'id': 12, 'nombre': 'Pancho'},
-    {'id': 13, 'nombre': 'Paco'},
-    {'id': 14, 'nombre': 'Frank'},
-    {'id': 15, 'nombre': 'Francis'},
-    {'id': 16, 'nombre': 'Menona'},
-  ];
-
   @Operation.get()
   Future<Response> getAllStudents() async {
+    final Query _studtetsQuery = Query<Student>(_context);
+    final _students = await _studtetsQuery.fetch();
     return Response.ok(_students);
   }
 
   @Operation.get('id')
   Future<Response> getStudentFromID(@Bind.path('id') int _idStudent) async {
+    final Query _studtetsQuery = Query<Student>(_context);
+    final _students = await _studtetsQuery.fetch();
+
     final dynamic _student = _students.firstWhere(
         (student) => student["id"] == _idStudent,
         orElse: () => null);

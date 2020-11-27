@@ -10,7 +10,6 @@ class MyProjectChannel extends ApplicationChannel {
   Future prepare() async {
     logger.onRecord.listen(
         (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
-
     final StudentsConfig config = StudentsConfig(options.configurationFilePath);
     final ManagedDataModel dataModel =
         ManagedDataModel.fromCurrentMirrorSystem();
