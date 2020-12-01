@@ -15,22 +15,17 @@ class RouteStudents extends ResourceController {
 
   @Operation.get('id')
   Future<Response> getStudentFromID(@Bind.path('id') int _idStudent) async {
-    final Query _studtetsQuery = Query<Student>(_context);
-    final _students = await _studtetsQuery.fetch();
-
-    final dynamic _student = _students.firstWhere(
-        (student) => student["id"] == _idStudent,
-        orElse: () => null);
-    if (_student != null) {
-      return Response.ok(_student);
-    }
+    final Query _studtetsQuery = Query<Student>(_context)
+      ..where((x) => x.id).equalTo(_idStudent);
+    final _student = await _studtetsQuery.fetchOne();
+    if (_student != null) return Response.ok(_student);
     return Response.notFound(
         body: {"error": "there is no student with id $_idStudent"});
   }
 
   @Operation.post()
-  Future<Response> createStudent(@Bind.body() Student input) async {
-    print(input.toString());
+  Future<Response> createStudent(
+      @Bind.body(ignore: ['id']) Student input) async {
     final query = Query<Student>(_context)..values = input;
     final _insertedData = await query.insert();
     return Response.ok(_insertedData);
